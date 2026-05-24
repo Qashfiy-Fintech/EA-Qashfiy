@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qashfiy Fintech Solution - Kad Perniagaan Digital</title>
+    <!-- Tailwind CSS untuk reka bentuk visual yang pantas dan premium -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons untuk ikon yang kemas -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts - Inter & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700&family=Space+Grotesk:wght=500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#080C14',
+                            card: '#0F1626',
+                            gold: '#D4AF37',
+                            goldHover: '#F3CD5F',
+                            green: '#10B981',
+                            greenHover: '#059669',
+                            telegram: '#0088cc',
+                            telegramHover: '#0077b3',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Kesan 3D Flip untuk Kad Perniagaan */
+        .card-container {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        /* Corak Latar Belakang Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-200 font-sans bg-grid antialiased selection:bg-brand-gold selection:text-brand-dark pb-28">
+
+    <!-- Notifikasi Tersuai (Custom Toast) -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-brand-gold text-brand-dark font-semibold px-6 py-3 rounded-full shadow-2xl z-50 transform -translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2 text-center text-xs md:text-sm max-w-[90%]">
+        <i id="toast-icon" data-lucide="check-circle" class="w-5 h-5 flex-shrink-0"></i>
+        <span id="toast-msg">Maklumat berjaya disalin!</span>
+    </div>
+
+    <!-- Navigasi Atas / Bar Status Mini -->
+    <header class="max-w-md mx-auto px-6 pt-6 flex justify-between items-center text-xs text-gray-400">
+        <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+            EA Qashfiy Online
+        </span>
+        <span class="font-space tracking-wider uppercase text-brand-gold">Qashfiy Fintech</span>
+    </header>
+
+    <main class="max-w-md mx-auto px-4 pb-24">
+        
+        <!-- SEKSYEN 1: Kad Perniagaan Interaktif (3D Flip) -->
+        <section class="py-8 flex flex-col items-center">
+            <p class="text-xs text-gray-400 mb-3 animate-bounce flex items-center gap-1">
+                <i data-lucide="rotate-3d" class="w-4 h-4"></i> Klik kad untuk pusingkan
+            </p>
+            
+            <div class="card-container w-full aspect-[1.75/1] max-w-sm h-56 cursor-pointer" onclick="flipCard()">
+                <div id="business-card" class="card-inner w-full h-full relative">
+                    
+                    <!-- KAD DEPAN (FRONT) -->
+                    <div class="card-front absolute w-full h-full bg-gradient-to-br from-brand-card to-[#162035] rounded-2xl p-6 shadow-2xl border border-white/10 flex flex-col justify-between overflow-hidden">
+                        <!-- Kesan Glow di belakang -->
+                        <div class="absolute -right-10 -top-10 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h1 class="font-space text-lg font-bold text-white tracking-wide">Qashfiy Fintech Solution</h1>
+                                <p class="text-[10px] text-brand-gold tracking-widest font-space uppercase">Smart Trading Automation</p>
+                            </div>
+                            <div class="bg-brand-gold/10 p-1.5 rounded-lg border border-brand-gold/20">
+                                <i data-lucide="cpu" class="w-6 h-6 text-brand-gold"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <h2 class="text-xl font-bold text-white tracking-wide">Qashfiy</h2>
+                            <p class="text-xs text-gray-400">Pengasas & Pembangun Sistem EA</p>
+                            
+                            <div class="mt-4 pt-3 border-t border-white/5 flex justify-between items-center text-[10px] text-gray-400">
+                                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-green"></i> EA Autopilot Amanah</span>
+                                <span>Verifikasi 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- KAD BELAKANG (BACK) -->
+                    <div class="card-back absolute w-full h-full bg-gradient-to-br from-[#121a2c] to-brand-card rounded-2xl p-6 shadow-2xl border border-brand-gold/20 flex justify-between items-center overflow-hidden">
+                        <div class="flex flex-col justify-between h-full w-2/3">
+                            <div>
+                                <h3 class="font-space text-xs font-semibold text-brand-gold uppercase tracking-wider">Perkhidmatan Utama</h3>
+                                <ul class="text-[11px] text-gray-300 mt-2 space-y-1">
+                                    <li class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-brand-gold"></span> Sewaan EA Forex</li>
+                                    <li class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-brand-gold"></span> Sistem Auto-Trading</li>
+                                    <li class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-brand-gold"></span> Setup VPS Percuma</li>
+                                    <li class="flex items-center gap-1"><span class="w-1 h-1 rounded-full bg-brand-gold"></span> Sokongan Teknikal 1-ke-1</li>
+                                </ul>
+                            </div>
+                            <p class="text-[9px] text-gray-500">Imbas QR di sebelah untuk demo sistem secara langsung.</p>
+                        </div>
+                        
+                        <!-- Simulasi QR Code Pintar -->
+                        <div class="w-24 h-24 bg-white p-2 rounded-xl shadow-lg flex flex-col justify-between items-center relative group">
+                            <!-- QR Code Mini SVG -->
+                            <svg class="w-full h-full text-brand-dark" viewBox="0 0 29 29" fill="none" stroke="currentColor" stroke-width="1">
+                                <path d="M1 1h7v7H1V1zm1 1v5h5V2H2zm19-1h7v7h-7V1zm1 1v5h5V2h-5zM1 21h7v7H1v-7zm1 1v5h5v-5H2zm12-19h3v3h-3V2zm0 5h3v3h-3V7zm5 5h3v3h-3v-3zm-5 5h3v3h-3v-3zm10 5h3v3h-3v-3zm-5-5h3v3h-3v-3zm5-5h3v3h-3v-3z" fill="currentColor"/>
+                                <rect x="11" y="11" width="7" height="7" rx="1" fill="#D4AF37" stroke="none" />
+                            </svg>
+                            <span class="text-[7px] text-brand-dark font-bold font-space mt-1">SCAN UNTUK DEMO</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Butang Tindakan Segera di bawah Kad -->
+            <div class="grid grid-cols-2 gap-3 w-full max-w-sm mt-6">
+                <button onclick="sendTelegramDirect()" class="flex items-center justify-center gap-2 bg-brand-telegram/10 hover:bg-brand-telegram/20 border border-brand-telegram/30 rounded-xl py-3 text-sm font-medium transition-all active:scale-95 text-brand-telegram">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15.45-3.1 12.98-3.28 13.59-.18.6-.54.68-.82.68-.34 0-.66-.12-.91-.35-.38-.34-1.89-1.58-2.61-2.17-.46-.38-.97-.99-.17-1.74.58-.55 3.32-3.13 5.09-4.83.25-.24.47-.46.47-.79 0-.27-.24-.38-.47-.28-.31.13-4.45 2.87-5.18 3.35-.36.24-.71.32-1.01.3-.34-.02-.99-.21-1.47-.37-.59-.19-1.07-.3-1.03-.64.02-.18.27-.37.74-.56C9.17 11.23 15.11 8.71 16.14 8.28c.43-.18.89-.28 1.14-.28.2 0 .42.04.53.13.19.16.2.49.11.67z"/></svg>
+                    Sembang Telegram
+                </button>
+                <button onclick="copyToClipboard('@SirQashfiy', 'Username Telegram disalin!')" class="flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl py-3 text-sm font-medium transition-all active:scale-95 text-gray-300">
+                    <i data-lucide="copy" class="w-4 h-4 text-brand-gold"></i> Salin ID
+                </button>
+            </div>
+        </section>
+
+        <!-- SEKSYEN 2: Kelebihan EA Qashfiy (Selling Points) -->
+        <section class="py-6 mb-8">
+            <h3 class="font-space text-lg font-bold text-white mb-6 text-center">Kenapa Pilih EA Qashfiy?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-brand-card/30 p-4 rounded-2xl border border-white/5 flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-3">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-xs font-bold text-white mb-1">100% Autopilot</h4>
+                    <p class="text-[10px] text-gray-400">Sistem berjalan automatik sepenuhnya tanpa perlu pantau graf setiap saat.</p>
+                </div>
+
+                <div class="bg-brand-card/30 p-4 rounded-2xl border border-white/5 flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-3">
+                        <i data-lucide="server" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-xs font-bold text-white mb-1">VPS Disediakan</h4>
+                    <p class="text-[10px] text-gray-400">Percuma setup pada Cloud Server VPS yang stabil dengan kelajuan tinggi.</p>
+                </div>
+
+                <div class="bg-brand-card/30 p-4 rounded-2xl border border-white/5 flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-3">
+                        <i data-lucide="help-circle" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-xs font-bold text-white mb-1">Sokongan Padu</h4>
+                    <p class="text-[10px] text-gray-400">Khidmat bantuan teknikal secara peribadi terus melalui Telegram.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSYEN 3: Pakej Penyewaan EA (Conversion Cards) -->
+        <section class="py-6 mb-8">
+            <h3 class="font-space text-lg font-bold text-white mb-2 text-center">Pakej Sewaan EA</h3>
+            <p class="text-xs text-gray-400 text-center mb-6">Pilih pelan penyewaan mengikut sasaran perniagaan anda.</p>
+
+            <div class="space-y-4">
+                <!-- PAKEJ 1 -->
+                <div class="bg-brand-card/40 p-5 rounded-2xl border border-white/5 relative overflow-hidden group hover:border-brand-gold/20 transition-all duration-300">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <span class="text-[10px] font-space text-brand-gold uppercase tracking-wider">PELAN BULANAN</span>
+                            <h4 class="text-base font-bold text-white">Sewa Bulanan</h4>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 block line-through">BND 40</span>
+                            <span class="text-lg font-bold font-space text-white">BND 20<span class="text-xs font-normal text-gray-400">/bln</span></span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4">Sesuai untuk yang ingin menguji kehebatan prestasi EA kami.</p>
+                    <ul class="text-[11px] text-gray-300 space-y-2 mb-4">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Untuk 1 Akaun Trading</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Support Setup VPS</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Saluran Telegram Ahli VIP</li>
+                    </ul>
+                    <button onclick="sendTelegramPackage('Pelan Sewa Bulanan (BND 20/bulan)')" class="w-full bg-white/5 hover:bg-brand-gold hover:text-brand-dark border border-white/10 hover:border-transparent text-white font-semibold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5">
+                        Sewa Pelan Bulanan <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+
+                <!-- PAKEJ 2 - BEST SELLER -->
+                <div class="bg-brand-card/80 p-5 rounded-2xl border-2 border-brand-gold relative overflow-hidden shadow-xl">
+                    <div class="absolute top-0 right-0 bg-brand-gold text-brand-dark text-[9px] font-bold font-space px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                        Terlaris 🔥
+                    </div>
+                    
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <span class="text-[10px] font-space text-brand-gold uppercase tracking-wider">PELAN TAHUNAN</span>
+                            <h4 class="text-base font-bold text-white">Sewa Tahunan (Value)</h4>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 block line-through">BND 300</span>
+                            <span class="text-lg font-bold font-space text-brand-gold">BND 200<span class="text-xs font-normal text-gray-400">/thn</span></span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4">Penjimatan besar dengan kemas kini sistem percuma sepanjang tahun.</p>
+                    <ul class="text-[11px] text-gray-300 space-y-2 mb-4">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Untuk 1 Akaun Trading Sahaja</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Cloud VPS Berkelajuan Tinggi Percuma</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Sokongan Teknikal Keutamaan Tinggi</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-green"></i> Konsultasi Peribadi 1-ke-1</li>
+                    </ul>
+                    <button onclick="sendTelegramPackage('Pelan Sewa Tahunan (BND 200/tahun)')" class="w-full bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5">
+                        Sewa Pelan Tahunan <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSYEN 4: Soalan Lazim (FAQ Accordion) -->
+        <section class="py-6 mb-8">
+            <h3 class="font-space text-lg font-bold text-white mb-6 text-center">Soalan Lazim (FAQ)</h3>
+            <div class="space-y-3">
+                <!-- FAQ 1 -->
+                <div class="bg-brand-card/30 rounded-2xl border border-white/5 overflow-hidden">
+                    <button onclick="toggleFAQ(1)" class="w-full p-4 text-left flex justify-between items-center hover:bg-white/5 transition-all">
+                        <span class="text-xs font-semibold text-white">Berapakah modal minimum untuk EA ini?</span>
+                        <i id="faq-icon-1" data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden px-4 pb-4 text-[11px] text-gray-400 border-t border-white/5 pt-2">
+                        Modal minimum yang disyorkan ialah USD 1,000 (Akaun Micro) atau USC 100,000 (Akaun Cent) untuk memastikan sistem pengurusan wang dan hasil dagangan berjalan dengan stabil serta selamat.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-brand-card/30 rounded-2xl border border-white/5 overflow-hidden">
+                    <button onclick="toggleFAQ(2)" class="w-full p-4 text-left flex justify-between items-center hover:bg-white/5 transition-all">
+                        <span class="text-xs font-semibold text-white">Adakah saya perlu menghidupkan PC 24 jam?</span>
+                        <i id="faq-icon-2" data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden px-4 pb-4 text-[11px] text-gray-400 border-t border-white/5 pt-2">
+                        Tidak perlu. Pakej sewaan kami didatangkan sekali dengan khidmat pemasangan pada Virtual Private Server (VPS) kami secara percuma. EA akan terus berjalan secara autopilot walaupun komputer atau telefon pintar anda dimatikan.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-brand-card/30 rounded-2xl border border-white/5 overflow-hidden">
+                    <button onclick="toggleFAQ(3)" class="w-full p-4 text-left flex justify-between items-center hover:bg-white/5 transition-all">
+                        <span class="text-xs font-semibold text-white">Bagaimanakah cara pembayaran dan pemasangan dilakukan?</span>
+                        <i id="faq-icon-3" data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden px-4 pb-4 text-[11px] text-gray-400 border-t border-white/5 pt-2">
+                        Pembayaran boleh dilakukan menerusi pemindahan bank 🇧🇳 BIBD (Brunei) / 💳 Skrill / RedotPay (Global) / 🇲🇾 TNG (Malaysia). Sebaik sahaja pengesahan selesai, pasukan kami akan membantu menguruskan setup Cloud VPS secara percuma dalam masa 24 jam.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSYEN 5: Borang Hubungi & Tempahan -->
+        <section class="py-6 bg-brand-card/20 rounded-3xl p-6 border border-white/5 mb-8">
+            <h3 class="font-space text-sm font-bold text-white mb-2 text-center uppercase tracking-wider text-brand-gold">TEMPAH SEKARANG</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Slot adalah terhad</p>
+            
+            <div class="space-y-3">
+                <input type="text" id="cust-name" placeholder="Nama Penuh Anda" class="w-full bg-brand-dark border border-white/10 rounded-xl px-4 py-3 text-xs text-white focus:outline-none focus:border-brand-gold transition-all">
+                <select id="cust-experience" class="w-full bg-brand-dark border border-white/10 rounded-xl px-4 py-3 text-xs text-gray-400 focus:outline-none focus:border-brand-gold transition-all">
+                    <option value="" disabled selected>Pengalaman Trading Anda?</option>
+                    <option value="Sifar (Baru Nak Mula)">Sifar (Baru Nak Mula)</option>
+                    <option value="Sederhana (Kurang 1 Tahun)">Sederhana (Kurang 1 Tahun)</option>
+                    <option value="Sifu / Berpengalaman">Sifu / Berpengalaman</option>
+                </select>
+                <button onclick="bookDemoSession()" class="w-full bg-white text-brand-dark font-bold py-3 rounded-xl text-xs hover:bg-brand-gold hover:text-brand-dark transition-all active:scale-95 flex items-center justify-center gap-1.5">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Tempah Slot Telegram
+                </button>
+            </div>
+        </section>
+
+        <!-- Penafian / Disclaimer -->
+        <footer class="text-center text-[9px] text-gray-600 px-4 space-y-2">
+            <p>© 2026 Qashfiy Fintech Solution. Hak Cipta Terpelihara.</p>
+            <p>Penafian: Dagangan Forex melibatkan risiko kerugian modal yang tinggi. Prestasi sistem masa lalu tidak menjamin hasil masa hadapan. Sila labur dengan bijak menggunakan modal berisiko sahaja.</p>
+        </footer>
+
+    </main>
+
+    <!-- Bar Tindakan Lekat di Bawah (Sticky Action Bar - Penutup Jualan Mudah Alih) -->
+    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-brand-card/90 backdrop-blur-md border-t border-white/10 px-6 py-3.5 flex justify-between items-center z-40 shadow-2xl">
+        <div class="flex flex-col">
+            <span class="text-[9px] text-gray-400 tracking-wider">SEDANG BERLANGSUNG</span>
+            <span class="text-xs font-bold text-brand-green">Tawaran Diskaun Terhad</span>
+        </div>
+        <button onclick="sendTelegramDirect()" class="bg-brand-telegram hover:bg-brand-telegramHover text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-all active:scale-95 flex items-center gap-1.5 shadow-lg shadow-brand-telegram/20">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15.45-3.1 12.98-3.28 13.59-.18.6-.54.68-.82.68-.34 0-.66-.12-.91-.35-.38-.34-1.89-1.58-2.61-2.17-.46-.38-.97-.99-.17-1.74.58-.55 3.32-3.13 5.09-4.83.25-.24.47-.46.47-.79 0-.27-.24-.38-.47-.28-.31.13-4.45 2.87-5.18 3.35-.36.24-.71.32-1.01.3-.34-.02-.99-.21-1.47-.37-.59-.19-1.07-.3-1.03-.64.02-.18.27-.37.74-.56C9.17 11.23 15.11 8.71 16.14 8.28c.43-.18.89-.28 1.14-.28.2 0 .42.04.53.13.19.16.2.49.11.67z"/></svg>
+            Sembang Telegram
+        </button>
+    </div>
+
+    <!-- Logik Pengaturcaraan JavaScript -->
+    <script>
+        // Memulakan Ikon Lucide
+        lucide.createIcons();
+
+        // Tetapan Pautan Telegram Pemilik
+        const telegramUrl = 'https://t.me/SirQashfiy';
+
+        // Fungsi Menukar Sisi Kad (Flip Card)
+        function flipCard() {
+            const card = document.getElementById('business-card');
+            card.classList.toggle('flipped');
+        }
+
+        // Fungsi Memaparkan Toast Notifikasi dinamik (Ganti Alert)
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = message;
+
+            // Kemas kini gaya visual mengikut jenis mesej
+            if (type === 'error' || type === 'warning') {
+                toast.className = "fixed top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white font-semibold px-6 py-3 rounded-full shadow-2xl z-50 transform transition-all duration-300 flex items-center gap-2 text-center text-xs md:text-sm max-w-[90%]";
+                toastIcon.setAttribute('data-lucide', 'alert-triangle');
+            } else {
+                toast.className = "fixed top-5 left-1/2 -translate-x-1/2 bg-brand-gold text-brand-dark font-semibold px-6 py-3 rounded-full shadow-2xl z-50 transform transition-all duration-300 flex items-center gap-2 text-center text-xs md:text-sm max-w-[90%]";
+                toastIcon.setAttribute('data-lucide', 'check-circle');
+            }
+
+            lucide.createIcons();
+
+            // Slaid masuk ke bawah skrin
+            toast.classList.remove('opacity-0', '-translate-y-20');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', '-translate-y-20');
+            }, 3500);
+        }
+
+        // Fungsi Menyalin Teks ke Clipboard secara selamat
+        function copyToClipboard(text, successMessage) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast(successMessage);
+        }
+
+        // Fungsi Mengurus Aliran Tempahan: Menyalin Mesej Tempahan dan Membuka Telegram
+        function proceedToTelegramWithTemplate(messageTemplate) {
+            const el = document.createElement('textarea');
+            el.value = messageTemplate;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast('Mesej tempahan disalin! Sila tampal (paste) di chat Telegram Sir Qashfiy.');
+
+            // Buka Telegram selepas 1.5 saat supaya pengguna sempat membaca toast info
+            setTimeout(() => {
+                window.open(telegramUrl, '_blank');
+            }, 1500);
+        }
+
+        // Fungsi Hubungi Terus (Direct Chat)
+        function sendTelegramDirect() {
+            window.open(telegramUrl, '_blank');
+        }
+
+        // Fungsi Tempah Pakej Terus
+        function sendTelegramPackage(packageName) {
+            const message = `Salam Sir Qashfiy, saya berminat untuk melanggan:\n\nPelan: ${packageName}\n\nMohon bantu saya untuk langkah seterusnya. Terima kasih!`;
+            proceedToTelegramWithTemplate(message);
+        }
+
+        // Fungsi Booking Sesi Demo / Tempahan Terus
+        function bookDemoSession() {
+            const name = document.getElementById('cust-name').value.trim();
+            const experience = document.getElementById('cust-experience').value;
+
+            if (!name) {
+                showToast('Sila masukkan nama penuh anda terlebih dahulu!', 'warning');
+                return;
+            }
+            if (!experience) {
+                showToast('Sila pilih tahap pengalaman trading anda!', 'warning');
+                return;
+            }
+
+            const message = `Salam Sir Qashfiy,\n\nNama: ${name}\nPengalaman: ${experience}\n\nSaya berminat untuk TEMPAH SEKARANG slot sistem EA. Sila bantu saya untuk pendaftaran.`;
+            proceedToTelegramWithTemplate(message);
+        }
+
+        // Fungsi Menukar Status FAQ (Accordion)
+        function toggleFAQ(id) {
+            const ans = document.getElementById(`faq-ans-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                ans.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+</html>
